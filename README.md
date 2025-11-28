@@ -23,7 +23,9 @@ A modern, feature-rich terminal emulator built with Electron and xterm.js, desig
 
 ## Installation
 
-For detailed installation instructions, troubleshooting, and platform-specific guidance, see **[INSTALL.md](INSTALL.md)**.
+For detailed installation instructions, troubleshooting, and platform-specific guidance:
+- **All platforms:** See [INSTALL.md](INSTALL.md)
+- **Windows users:** See [WINDOWS-SETUP.md](WINDOWS-SETUP.md) for Visual Studio setup
 
 ### Quick Start
 
@@ -34,6 +36,8 @@ npm install
 # Run in development mode
 npm run dev
 ```
+
+**Note for Windows:** If you get build errors about "Spectre-mitigated libraries", see [WINDOWS-SETUP.md](WINDOWS-SETUP.md)
 
 ## Usage
 
