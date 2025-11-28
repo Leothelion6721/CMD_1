@@ -4,8 +4,8 @@
   "description": "Advanced Terminal - A modern terminal emulator with enhanced features",
   "main": "src/main/index.js",
   "scripts": {
-    "start": "electron .",
-    "dev": "electron . --dev",
+    "start": "electron . --disable-gpu --disable-software-rasterizer",
+    "dev": "electron . --dev --disable-gpu --disable-software-rasterizer",
     "build": "electron-builder",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
