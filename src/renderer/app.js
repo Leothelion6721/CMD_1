@@ -89,13 +89,18 @@ class AdvancedTerminal {
     window.addEventListener('resize', () => {
       this.tabs.forEach(tab => {
         if (tab.fitAddon) {
-          tab.fitAddon.fit();
-          this.resizeTerminal(tab.id, tab.fitAddon.proposeDimensions());
+          setTimeout(() => {
+            tab.fitAddon.fit();
+            this.resizeTerminal(tab.id, tab.fitAddon.proposeDimensions());
+          }, 50);
         }
       });
     });
 
     document.addEventListener('keydown', (e) => {
+      // Don't handle shortcuts if typing in search
+      if (e.target.id === 'search-input') return;
+
       if (e.ctrlKey && e.key === 't') {
         e.preventDefault();
         this.createTab();
@@ -122,6 +127,16 @@ class AdvancedTerminal {
         this.resetFontSize();
       }
     });
+
+    // Handle clicks on terminal area to refocus
+    document.getElementById('terminal-container').addEventListener('click', (e) => {
+      if (this.activeTabId) {
+        const activeTab = this.tabs.get(this.activeTabId);
+        if (activeTab && activeTab.terminal) {
+          setTimeout(() => activeTab.terminal.focus(), 10);
+        }
+      }
+    });
   }
 
   createTab(title = null) {
@@ -142,8 +157,10 @@ class AdvancedTerminal {
       }
     });
 
-    tabElement.querySelector('.tab-close').addEventListener('click', (e) => {
+    const closeBtn = tabElement.querySelector('.tab-close');
+    closeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+      e.preventDefault();
       this.closeTab(tabId);
     });
 
@@ -228,7 +245,11 @@ class AdvancedTerminal {
 
     this.switchTab(tabId);
 
-    terminal.focus();
+    // Focus after a short delay to ensure PTY is ready
+    setTimeout(() => {
+      terminal.focus();
+      console.log(`Tab ${tabId} created and focused`);
+    }, 100);
   }
 
   switchTab(tabId) {
@@ -238,10 +259,13 @@ class AdvancedTerminal {
       if (id === tabId) {
         tab.element.classList.add('active');
         tab.wrapper.classList.remove('hidden');
-        tab.terminal.focus();
-        if (tab.fitAddon) {
-          tab.fitAddon.fit();
-        }
+        setTimeout(() => {
+          tab.terminal.focus();
+          if (tab.fitAddon) {
+            tab.fitAddon.fit();
+            this.resizeTerminal(tab.id, tab.fitAddon.proposeDimensions());
+          }
+        }, 50);
       } else {
         tab.element.classList.remove('active');
         tab.wrapper.classList.add('hidden');
@@ -253,7 +277,12 @@ class AdvancedTerminal {
 
   closeTab(tabId) {
     const tab = this.tabs.get(tabId);
-    if (!tab) return;
+    if (!tab) {
+      console.log('Tab not found:', tabId);
+      return;
+    }
+
+    console.log('Closing tab:', tabId);
 
     if (this.tabs.size === 1) {
       window.close();
@@ -335,7 +364,7 @@ class AdvancedTerminal {
       searchContainer.classList.add('hidden');
       const activeTab = this.tabs.get(this.activeTabId);
       if (activeTab) {
-        activeTab.terminal.focus();
+        setTimeout(() => activeTab.terminal.focus(), 10);
       }
     }
   }
