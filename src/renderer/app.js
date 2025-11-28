@@ -201,12 +201,14 @@ class AdvancedTerminal {
 
     terminal.open(terminalElement);
 
-    try {
-      const webglAddon = new WebglAddon();
-      terminal.loadAddon(webglAddon);
-    } catch (e) {
-      console.warn('WebGL addon failed to load, falling back to canvas renderer');
-    }
+    // Skip WebGL addon for better compatibility
+    // Use canvas renderer instead (still fast and reliable)
+    // try {
+    //   const webglAddon = new WebglAddon();
+    //   terminal.loadAddon(webglAddon);
+    // } catch (e) {
+    //   console.warn('WebGL addon failed to load, falling back to canvas renderer');
+    // }
 
     terminal.unicode.activeVersion = '11';
 

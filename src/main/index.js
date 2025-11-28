@@ -241,6 +241,14 @@ ipcMain.on('terminal-kill', (event, { id }) => {
   }
 });
 
+// Disable GPU acceleration to prevent GPU process crashes
+app.disableHardwareAcceleration();
+
+// Add command line switches for better compatibility
+app.commandLine.appendSwitch('disable-gpu');
+app.commandLine.appendSwitch('disable-gpu-compositing');
+app.commandLine.appendSwitch('disable-software-rasterizer');
+
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
