@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Terminal</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="../../node_modules/@xterm/xterm/css/xterm.css">
+</head>
+<body>
+  <div id="app">
+    <div id="tab-bar">
+      <div id="tabs-container"></div>
+      <button id="new-tab-btn" title="New Tab (Ctrl+T)">+</button>
+    </div>
+
+    <div id="search-container" class="hidden">
+      <input type="text" id="search-input" placeholder="Search...">
+      <button id="search-prev">↑</button>
+      <button id="search-next">↓</button>
+      <button id="search-close">×</button>
+    </div>
+
+    <div id="terminal-container"></div>
+
+    <div id="status-bar">
+      <span id="status-shell"></span>
+      <span id="status-cwd"></span>
+      <span id="status-encoding">UTF-8</span>
+    </div>
+  </div>
+
+  <script src="../../node_modules/@xterm/xterm/lib/xterm.js"></script>
+  <script src="../../node_modules/@xterm/addon-fit/lib/addon-fit.js"></script>
+  <script src="../../node_modules/@xterm/addon-search/lib/addon-search.js"></script>
+  <script src="../../node_modules/@xterm/addon-web-links/lib/addon-web-links.js"></script>
+  <script src="../../node_modules/@xterm/addon-webgl/lib/addon-webgl.js"></script>
+  <script src="../../node_modules/@xterm/addon-unicode11/lib/addon-unicode11.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
