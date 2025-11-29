@@ -186,7 +186,8 @@ class AdvancedTerminal {
       allowTransparency: false,
       windowsMode: process.platform === 'win32',
       convertEol: true,
-      rendererType: 'canvas'
+      rendererType: 'canvas',
+      allowProposedApi: true
     });
 
     const fitAddon = new FitAddon();
