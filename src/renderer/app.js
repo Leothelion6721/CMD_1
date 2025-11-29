@@ -167,7 +167,7 @@ class AdvancedTerminal {
     document.getElementById('tabs-container').appendChild(tabElement);
 
     const terminalWrapper = document.createElement('div');
-    terminalWrapper.className = 'terminal-wrapper hidden';
+    terminalWrapper.className = 'terminal-wrapper';
     terminalWrapper.dataset.tabId = tabId;
 
     const terminalElement = document.createElement('div');
@@ -245,11 +245,15 @@ class AdvancedTerminal {
       title: tabTitle
     });
 
+    // Force wrapper to be visible immediately
+    terminalWrapper.classList.remove('hidden');
+
     this.switchTab(tabId);
 
     // Focus after a short delay to ensure PTY is ready
     setTimeout(() => {
       terminal.focus();
+      terminalWrapper.classList.remove('hidden'); // Double-check visibility
       console.log(`Tab ${tabId} created and focused`);
     }, 100);
   }
